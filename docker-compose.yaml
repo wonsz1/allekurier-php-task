@@ -1,5 +1,4 @@
-version: "3.5"
-# https://docs.docker.com/compose/compose-file/compose-versioning/
+version: '3.5'
 
 services:
   ak_invoice_php:
@@ -9,7 +8,7 @@ services:
       context: .
       dockerfile: docker/build/php/Dockerfile
     ports:
-      - "8011:80"
+      - '8011:80'
     depends_on:
       - ak_invoice_mysql
     volumes:
@@ -22,13 +21,12 @@ services:
   ak_invoice_mysql:
     container_name: ak_invoice_mysql
     image: mysql:5.7
-#    image: beercan1989/arm-mysql:5.7
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --sql_mode="ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
-    restart: always  # always | unless-stopped | on-failure | no
+    restart: always
     expose:
-      - "3306"
+      - '3306'
     ports:
-      - "33075:3306"
+      - '33075:3306'
     volumes:
       - ./docker/build/mysql:/docker-entrypoint-initdb.d
       - ${MYSQL_DOCKER_CNF-./docker/build/mysql/docker.cnf}:/etc/mysql/conf.d/docker.cnf

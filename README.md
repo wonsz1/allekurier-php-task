@@ -1,5 +1,7 @@
 ## Zadanie rekrutacyjne
+
 Aplikacja jest małym systemem pozwalającym dodawać faktury (Invoice) do kontrahentów (User). System jest w początkowej fazie rozwoju i pozwala na uruchomienie dwóch poleceń z CLI.
+
 ```
 # tworzenie faktury dla użytkownika user@example.com na kwotę 125,00 zł
 bin/console app:invoice:create user@example.com 12500
@@ -7,6 +9,7 @@ bin/console app:invoice:create user@example.com 12500
 # pobieranie identyfiaktorów faktur, które mają status "new" i ich kwota jest większa od 100,00 zł
 bin/console app:invoice:get-by-status-and-amount new 10000
 ```
+
 ### Istniejące założenia biznesowe
 
 - Kwota faktury musi być większa od 0
@@ -22,7 +25,13 @@ bin/console app:invoice:get-by-status-and-amount new 10000
 - Stwórz CLI Command do pobierania e-maili nieaktywnych użytkowników.
 
 ## Uruchomienie aplikacji
-Aplikacja posiada konfigurację obrazów dockerowych 
+
+Aplikacja posiada konfigurację obrazów dockerowych
+
+### Plik konfiguracyjny .env
+
+Zmień nazwę pliku `.env.example` na `.env`.
+
 ```
 # zbudowanie obrazu i uruchomienie kontenera aplikacji
 docker-compose up -d
@@ -30,11 +39,12 @@ docker-compose up -d
 # lista uruchomionych kontenerów, na liście jest CONTAINER ID
 docker ps
 
-# wejście do bash kontenera 
+# wejście do bash kontenera
 docker exec -it {CONTAINER ID} bash
 ```
 
 ### Testy
+
 ```
 bin/phpunit tests/Unit/
 ```
