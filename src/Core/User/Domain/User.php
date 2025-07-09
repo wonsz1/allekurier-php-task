@@ -3,6 +3,8 @@
 namespace App\Core\User\Domain;
 
 use App\Common\EventManager\EventsCollectorTrait;
+use App\Core\User\Domain\Event\UserActivationEvent;
+use App\Core\User\Domain\Event\UserCreatedEvent;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -34,6 +36,8 @@ class User
     {
         $this->id = null;
         $this->email = $email;
+
+        $this->record(new UserCreatedEvent($this));
     }
 
     public function getEmail(): string
@@ -49,5 +53,6 @@ class User
     public function setIsActive(bool $isActive): void
     {
         $this->isActive = $isActive;
+        $this->record(new UserActivationEvent($this, $isActive));
     }
 }
