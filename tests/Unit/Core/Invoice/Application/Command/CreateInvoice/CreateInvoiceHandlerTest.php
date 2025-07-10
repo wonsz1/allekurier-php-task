@@ -90,8 +90,8 @@ class CreateInvoiceHandlerTest extends TestCase
         // Arrange
         $email = 'test@example.com';
         $amount = 100;
-        $activeUser = new User($email);
-        $activeUser->setIsActive(true);
+        $activeUser = $this->createMock(User::class);
+        $activeUser->expects(self::once())->method('getIsActive')->willReturn(true);
 
         $userRepository = $this->createMock(UserRepositoryInterface::class);
         $userRepository->expects($this->once())
@@ -124,8 +124,8 @@ class CreateInvoiceHandlerTest extends TestCase
         // Arrange
         $email = 'inactive@example.com';
         $amount = 100;
-        $inactiveUser = new User($email);
-        $inactiveUser->setIsActive(false);
+        $inactiveUser = $this->createMock(User::class);
+        $inactiveUser->expects(self::once())->method('getIsActive')->willReturn(false);
 
         $userRepository = $this->createMock(UserRepositoryInterface::class);
         $userRepository->expects($this->once())
