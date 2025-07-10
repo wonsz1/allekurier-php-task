@@ -38,6 +38,16 @@ class DoctrineUserRepository implements UserRepositoryInterface
         return $user;
     }
 
+    public function getInactiveUsersEmails(): array
+    {
+        return $this->entityManager->createQueryBuilder()
+            ->select('u.email')
+            ->from(User::class, 'u')
+            ->where('u.isActive = false')
+            ->getQuery()
+            ->getResult();
+    }
+
     public function save(User $user): void
     {
         $this->entityManager->persist($user);
